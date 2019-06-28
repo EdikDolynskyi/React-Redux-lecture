@@ -2,12 +2,7 @@ import React from 'react';
 
 class UserForm extends React.Component {
     render() {
-        const data = {
-            checked: false,
-            name: 'Edik',
-            email: 'edik@gmail.com',
-            password: '12345'
-        };
+        const data = this.props.data;
 
         return (
             <div>
