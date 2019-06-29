@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class TextInput extends React.Component {
     render() {
@@ -15,5 +16,9 @@ class TextInput extends React.Component {
         );
     }
 }
+
+TextInput.propTypes = {
+    text: PropTypes.string
+};
 
 export default TextInput;

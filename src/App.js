@@ -1,5 +1,6 @@
 import React from 'react';
-import UserForm from './components/UserForm';
+import UserForm from './components/UserFormScalable';
+import ErrorBoundary from './error/ErrorBoundary';
 import './App.css';
 
 function App() {
@@ -12,7 +13,9 @@ function App() {
   
   return (
     <div className="App">
-      <UserForm data={ data } />
+      <ErrorBoundary>
+          <UserForm data={ data } />
+      </ErrorBoundary>
     </div>
   );
 }

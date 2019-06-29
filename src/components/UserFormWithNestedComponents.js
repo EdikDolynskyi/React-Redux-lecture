@@ -1,5 +1,6 @@
 import React from 'react';
 import TextInput from './inputs/TextInput';
+import PasswordInput from './inputs/PasswordInput';
 
 class UserForm extends React.Component {
     constructor(props) {
@@ -39,9 +40,9 @@ class UserForm extends React.Component {
                     keyword={ 'email' }
                     onChange={ this.onChange }
                 />
-                <TextInput
+                <PasswordInput
                     label={ 'Password' }
-                    type={ 'text' }
+                    type={ 'password' }
                     text={ data.password }
                     keyword={ 'password' }
                     onChange={ this.onChange }

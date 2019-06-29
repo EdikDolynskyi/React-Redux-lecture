@@ -4,16 +4,16 @@ class UserForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: false,
             name: 'Edik',
             email: 'edik@gmail.com',
             password: '12345'
         };
     }
 
-    onChange() {
+    onChange(e, keyword) {
+        const value = e.target.value;
         this.setState({
-            checked: !this.state.checked
+            [keyword]: value
         });
     }
 
@@ -23,20 +23,16 @@ class UserForm extends React.Component {
         return (
             <div>
                 <div>
-                    <label>Checkbox</label>
-                    <input type="checkbox" checked={data.checked} onChange={this.onChange} />
-                </div>
-                <div>
                     <label>Name</label>
-                    <input value={data.name} onChange={this.onChange} />
+                    <input value={data.name} onChange={(e) => this.onChange(e, 'name')} />
                 </div>
                 <div>
                     <label>Email</label>
-                    <input value={data.email} onChange={this.onChange} />
+                    <input value={data.email} onChange={(e) => this.onChange(e, 'email')} />
                 </div>
                 <div>
                     <label>Password</label>
-                    <input type="password" value={data.password} onChange={this.onChange} />
+                    <input type="password" value={data.password} onChange={(e) => this.onChange(e, 'password')} />
                 </div>
             </div>
         );
