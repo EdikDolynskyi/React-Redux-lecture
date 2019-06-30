@@ -1,26 +1,18 @@
 import { ADD_USER, UPDATE_USER, DELETE_USER } from "./actionTypes";
 
 const initialState = [{
-        id: 1,
-        name: 'Ivan',
-        email: 'ivan@gmail.com',
-        password: '123',
-        rights: {
-            read: true,
-            comment: true,
-            write: false
-        }
-    }, {
-        id: 2,
-        name: 'Petro',
-        email: 'petya@gmail.com',
-        password: 123,
-        rights: {
-            read: true,
-            comment: true,
-            write: true
-        }
-    }
+    id: 1,
+    name: 'Ivan',
+    surname: 'Ivanov',
+    email: 'ivan@gmail.com',
+    password: '123'
+}, {
+    id: 2,
+    name: 'Petro',
+    surname: 'Petrov',
+    email: 'petya@gmail.com',
+    password: 123
+}
 ];
 
 export default function (state = initialState, action) {
@@ -30,7 +22,7 @@ export default function (state = initialState, action) {
             const newUser = { id, ...data };
             return [...state, newUser];
         }
-        
+
         case UPDATE_USER: {
             const { id, data } = action.payload;
             const updatedUsers = state.map(user => {

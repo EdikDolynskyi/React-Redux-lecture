@@ -27,23 +27,33 @@ class UserList extends Component {
 
 	render() {
 		return (
-			<div>
-				<button onClick={this.onAdd}>Add user</button>
-				<ul>
+			<div className="row">
+				<div className="list-group col-10">
 					{
 						this.props.users.map(user => {
 							return (
 								<UserItem
-									key={ user.id }
-									id={ user.id }
-									name={ user.name }
-									onEdit={ this.onEdit }
-									onDelete={ this.onDelete }
+									key={user.id}
+									id={user.id}
+									name={user.name}
+									surname={user.surname}
+									email={user.email}
+									onEdit={this.onEdit}
+									onDelete={this.onDelete}
 								/>
 							);
 						})
 					}
-				</ul>
+				</div>
+				<div className="col-2">
+					<button
+						className="btn btn-success"
+						onClick={this.onAdd}
+						style={{ margin: "5px" }}
+					>
+						Add user
+					</button>
+				</div>
 			</div>
 		);
 	}
@@ -61,4 +71,4 @@ const mapDispatchToProps = {
 	showPage
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(UserList);
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
