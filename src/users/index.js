@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import UserItem from './UserItem';
 import * as actions from './actions';
-import { setCurrentUserId, showPage } from '../userPage/actions';
+import PropTypes from 'prop-types';
 
 class UserList extends Component {
 	constructor(props) {
@@ -12,9 +12,12 @@ class UserList extends Component {
 		this.onAdd = this.onAdd.bind(this);
 	}
 
+	componentDidMount() {
+		this.props.fetchUsers();
+	}
+
 	onEdit(id) {
-		this.props.setCurrentUserId(id);
-		this.props.showPage();
+		this.props.history.push(`/user/${id}`);
 	}
 
 	onDelete(id) {
@@ -22,7 +25,7 @@ class UserList extends Component {
 	}
 
 	onAdd() {
-		this.props.showPage();
+		this.props.history.push('/user');
 	}
 
 	render() {
@@ -59,6 +62,10 @@ class UserList extends Component {
 	}
 }
 
+UserList.propTypes = {
+    userData: PropTypes.object
+};
+
 const mapStateToProps = (state) => {
 	return {
 		users: state.users
@@ -66,9 +73,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-	...actions,
-	setCurrentUserId,
-	showPage
+	...actions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserList);

@@ -1,5 +1,5 @@
-import { ADD_USER, UPDATE_USER, DELETE_USER } from "./actionTypes";
-const getNewId = () => (new Date()).getTime();
+import { ADD_USER, UPDATE_USER, DELETE_USER, FETCH_USERS } from "./actionTypes";
+const getNewId = () => (new Date()).getTime().toString();
 
 export const addUser = data => ({
     type: ADD_USER,
@@ -22,4 +22,8 @@ export const deleteUser = id => ({
     payload: {
         id
     }
+});
+
+export const fetchUsers = () => ({
+    type: FETCH_USERS
 });

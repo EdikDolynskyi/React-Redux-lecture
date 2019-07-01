@@ -7,6 +7,8 @@ import PasswordInput from '../shared/inputs/password/PasswordInput';
 import EmailInput from '../shared/inputs/email/EmailInput';
 import userFormConfig from '../shared/config/userFormConfig';
 import defaultUserConfig from '../shared/config/defaultUserConfig';
+import PropTypes from 'prop-types';
+const EMAIL = "email";
 
 class UserPage extends Component {
     constructor(props) {
@@ -17,39 +19,38 @@ class UserPage extends Component {
         this.onChangeData = this.onChangeData.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.userId !== this.props.userId) {
-            const user = this.props.users.find(user => user.id === nextProps.userId);
-            this.setState(user);
+    componentDidMount() {
+        if (this.props.match.params.id) {
+            this.setState({
+                currentUserId: this.props.match.params.id
+            });
+            this.props.fetchUser(this.props.match.params.id)
         }
     }
 
-    /*
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.userId !== prevState.userId) {
-            const user = nextProps.users.find(user => user.id === nextProps.userId);
+        if (nextProps.userData.id !== prevState.id && prevState.currentUserId) {
             return {
-                ...user
+                ...nextProps.userData
             };
+        } else {
+            return null;
         }
     }
-    */
 
     onCancel() {
-        this.props.dropCurrentUserId();
-        this.props.hidePage();
         this.setState(this.getDefaultUserData());
+        this.props.history.push('/');
     }
 
     onSave() {
-        if (this.props.userId) {
-            this.props.updateUser(this.props.userId, this.state);
+        if (this.state.currentUserId) {
+            this.props.updateUser(this.state.currentUserId, this.state);
         } else {
             this.props.addUser(this.state);
         }
-        this.props.dropCurrentUserId();
-        this.props.hidePage();
         this.setState(this.getDefaultUserData());
+        this.props.history.push('/');
     }
 
     onChangeData(e, keyword) {
@@ -68,11 +69,12 @@ class UserPage extends Component {
         };
     }
 
-    getInput(data, { label, type, keyword }) {
+    getInput(data, { label, type, keyword }, index) {
         switch (type) {
             case 'text':
                 return (
                     <TextInput
+                        key={index}
                         label={label}
                         type={type}
                         text={data[keyword]}
@@ -83,17 +85,19 @@ class UserPage extends Component {
             case 'email':
                 return (
                     <EmailInput
+                        key={index}
                         label={label}
                         type={type}
                         text={data[keyword]}
                         keyword={keyword}
-                        ref="email"
+                        ref={EMAIL}
                         onChange={this.onChangeData}
                     />
                 );
             case 'password':
                 return (
                     <PasswordInput
+                        key={index}
                         label={label}
                         type={type}
                         text={data[keyword]}
@@ -106,9 +110,8 @@ class UserPage extends Component {
         }
     }
 
-    getUserPageContent() {
+    render() {
         const data = this.state;
-        // const isValid = this.refs.email ? this.refs.email.getValidationStatus() : true;
 
         return (
             <div className="modal" style={{ display: "block" }} tabIndex="-1" role="dialog">
@@ -122,7 +125,7 @@ class UserPage extends Component {
                         </div>
                         <div className="modal-body">
                             {
-                                userFormConfig.map(item => this.getInput(data, item))
+                                userFormConfig.map((item, index) => this.getInput(data, item, index))
                             }
                         </div>
                         <div className="modal-footer">
@@ -134,18 +137,15 @@ class UserPage extends Component {
             </div>
         );
     }
-
-    render() {
-        const isShown = this.props.isShown;
-        return isShown ? this.getUserPageContent() : null;
-    }
 }
+
+UserPage.propTypes = {
+    userData: PropTypes.object
+};
 
 const mapStateToProps = (state) => {
     return {
-        users: state.users,
-        isShown: state.userPage.isShown,
-        userId: state.userPage.userId
+        userData: state.userPage.userData
     }
 };
 

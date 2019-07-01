@@ -1,25 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-const createStore = (reducer, initialState) => {
-	const currentReducer = reducer;
-	let currentState = initialState;
-	let listener = () => {};
-
-	return {
-		dispatch(action) {
-			currentState = currentReducer(currentState, action);
-			listener()
-			return action;
-		},
-		subscribe(newListener) {
-			listener = newListener;
-		},
-		getState() {
-			return currentState;
-		}
-	};
-}
+import { createStore, applyMiddleware } from 'redux';
 
 const counter = (state = 0, action) => {
 	switch (action.type) {
@@ -40,7 +21,16 @@ const decrement = () => ({
 	type: 'DECREMENT'
 });
 
-const store = createStore(counter);
+const logger = store => next => action => {
+	console.group(action.type);
+	console.info('dispatching', action);
+	let result = next(action);
+	console.log('next state', store.getState());
+	console.groupEnd();
+	return result;
+};
+
+const store = createStore(counter, applyMiddleware(logger));
 
 class Counter extends React.Component {
 	render() {

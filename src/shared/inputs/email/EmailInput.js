@@ -1,6 +1,6 @@
 import React from 'react';
 import './EmailInput.css';
-import { thisExpression } from '@babel/types';
+import PropTypes from 'prop-types';
 
 class EmailInput extends React.Component {
     constructor(props) {
@@ -46,5 +46,11 @@ class EmailInput extends React.Component {
         );
     }
 }
+
+EmailInput.propTypes = {
+    text: PropTypes.string,
+    type: PropTypes.string,
+    onChange: PropTypes.func
+};
 
 export default EmailInput;

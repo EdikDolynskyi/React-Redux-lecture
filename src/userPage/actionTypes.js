@@ -1,4 +1,2 @@
-export const SET_CURRENT_USER_ID = "SET_CURRENT_USER_ID";
-export const DROP_CURRENT_USER_ID = "DROP_CURRENT_USER_ID";
-export const SHOW_PAGE = "SHOW_PAGE";
-export const HIDE_PAGE = "HIDE_PAGE";
+export const FETCH_USER = "FETCH_USER";
+export const FETCH_USER_SUCCESS = "FETCH_USER_SUCCESS";
