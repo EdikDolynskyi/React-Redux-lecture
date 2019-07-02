@@ -2,6 +2,12 @@ import { ADD_USER, UPDATE_USER, DELETE_USER } from "./actionTypes";
 
 const initialState = [{
     id: 1,
+    name: 'Edik',
+    surname: 'Dolynskyi',
+    email: 'edik@gmail.com',
+    password: '123'
+}, {
+    id: 1,
     name: 'Ivan',
     surname: 'Ivanov',
     email: 'ivan@gmail.com',
