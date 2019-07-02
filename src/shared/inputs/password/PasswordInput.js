@@ -37,6 +37,8 @@ class PasswordInput extends React.Component {
 
 PasswordInput.propTypes = {
     text: PropTypes.string,
+    keyword: PropTypes.string,
+    label: PropTypes.string,
     onChange: PropTypes.func
 };
 

@@ -50,6 +50,8 @@ class EmailInput extends React.Component {
 EmailInput.propTypes = {
     text: PropTypes.string,
     type: PropTypes.string,
+    keyword: PropTypes.string,
+    label: PropTypes.string,
     onChange: PropTypes.func
 };
 
