@@ -1,10 +1,10 @@
 import { ADD_USER, UPDATE_USER, DELETE_USER, FETCH_USERS } from "./actionTypes";
-const getNewId = () => (new Date()).getTime().toString();
+import service from './service';
 
 export const addUser = data => ({
     type: ADD_USER,
     payload: {
-        id: getNewId(),
+        id: service.getNewId(),
         data
     }
 });
