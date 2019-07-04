@@ -22,14 +22,14 @@ class UserPage extends Component {
     componentDidMount() {
         if (this.props.match.params.id) {
             this.setState({
-                currentUserId: this.props.match.params.id
+                id: this.props.match.params.id
             });
             this.props.fetchUser(this.props.match.params.id)
         }
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.userData.id !== prevState.id && prevState.currentUserId) {
+        if (nextProps.userData.id !== prevState.id && prevState.id) {
             return {
                 ...nextProps.userData
             };
@@ -44,8 +44,8 @@ class UserPage extends Component {
     }
 
     onSave() {
-        if (this.state.currentUserId) {
-            this.props.updateUser(this.state.currentUserId, this.state);
+        if (this.state.id) {
+            this.props.updateUser(this.state.id, this.state);
         } else {
             this.props.addUser(this.state);
         }
