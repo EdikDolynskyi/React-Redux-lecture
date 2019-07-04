@@ -21,15 +21,12 @@ class UserPage extends Component {
 
     componentDidMount() {
         if (this.props.match.params.id) {
-            this.setState({
-                id: this.props.match.params.id
-            });
             this.props.fetchUser(this.props.match.params.id)
         }
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.userData.id !== prevState.id && prevState.id) {
+        if (nextProps.userData.id !== prevState.id && nextProps.match.params.id) {
             return {
                 ...nextProps.userData
             };

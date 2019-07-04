@@ -1,4 +1,4 @@
-const getNewId = () => (new Date()).getTime();
+const getNewId = () => (new Date()).getTime().toString();
 
 export default {
     getNewId
